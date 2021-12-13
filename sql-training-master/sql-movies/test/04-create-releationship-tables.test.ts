@@ -4,21 +4,51 @@ import {
   MOVIE_KEYWORDS,
   MOVIE_ACTORS,
   MOVIE_DIRECTORS,
-  MOVIE_PRODUCTION_COMPANIES
+  MOVIE_PRODUCTION_COMPANIES,
+  MOVIES,
+  GENRES,
+  ACTORS,
+  DIRECTORS,
+  KEYWORDS,
+  PRODUCTION_COMPANIES
 } from "../src/table-names";
 import { Database } from "../src/database";
 import { tableInfo } from "../src/queries/table-info";
 import { minutes, Log } from "./utils";
 
-const CREATE_MOVIE_GENRES_TABLE = ``;
+const CREATE_MOVIE_GENRES_TABLE = `CREATE TABLE ${MOVIE_GENRES}
+(
+movie_id integer NOT NULL references movies(id),
+genre_id integer NOT NULL references genres(id),
+PRIMARY KEY (movie_id, genre_id)
+);`;
+const CREATE_MOVIE_ACTORS_TABLE = `CREATE TABLE ${MOVIE_ACTORS}
+(
+movie_id integer NOT NULL references ${MOVIES}(id),
+actor_id integer NOT NULL references ${ACTORS}(id),
+PRIMARY KEY (movie_id, actor_id)
+);`;
 
-const CREATE_MOVIE_ACTORS_TABLE = ``;
+const CREATE_MOVIE_DIRECTORS_TABLE = `CREATE TABLE ${MOVIE_DIRECTORS}
+(
+movie_id integer NOT NULL references ${MOVIES}(id),
+director_id integer NOT NULL references ${DIRECTORS}(id),
+PRIMARY KEY (movie_id, director_id)
+);`;
 
-const CREATE_MOVIE_DIRECTORS_TABLE = ``;
+const CREATE_MOVIE_KEYWORDS_TABLE = `CREATE TABLE ${MOVIE_KEYWORDS}
+(
+movie_id integer NOT NULL references ${MOVIES}(id),
+keyword_id integer NOT NULL references ${KEYWORDS}(id),
+PRIMARY KEY (movie_id, keyword_id)
+);`;
 
-const CREATE_MOVIE_KEYWORDS_TABLE = ``;
-
-const CREATE_MOVIE_PRODUCTION_COMPANIES_TABLE = ``;
+const CREATE_MOVIE_PRODUCTION_COMPANIES_TABLE = `CREATE TABLE ${MOVIE_PRODUCTION_COMPANIES}
+(
+movie_id integer NOT NULL references ${MOVIES}(id),
+company_id integer NOT NULL references ${PRODUCTION_COMPANIES}(id),
+PRIMARY KEY (movie_id, company_id)
+);`;
 
 describe("Insert Combined Data", () => {
   let db: Database;
