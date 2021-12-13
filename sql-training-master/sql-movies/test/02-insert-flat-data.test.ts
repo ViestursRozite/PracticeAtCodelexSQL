@@ -24,29 +24,70 @@ import { minutes } from "./utils";
 
 const insertActors = (actors: string[]) => {
   return (
-    `insert into actors (full_name) values` +
+    `INSERT INTO actors (full_name) values` +
     actors.map(actor => `('${escape(actor)}')`).join(",")
   );
 };
 
 const insertKeywords = (keywords: string[]) => {
-  throw new Error(`todo`);
+    return (
+        `INSERT INTO KEYWORDS (keyword) values` +
+        keywords.map(keyword => `('${escape(keyword)}')`).join(",")
+    );
 };
 
 const insertDirectors = (directors: string[]) => {
-  throw new Error(`todo`);
+    return (
+        `INSERT INTO DIRECTORS (full_name) values` +
+        directors.map(director => `('${escape(director)}')`).join(",")
+    );
 };
 
 const insertGenres = (genres: string[]) => {
-  throw new Error(`todo`);
+    return (
+        `INSERT INTO GENRES (genre) values` +
+        genres.map(genre => `('${escape(genre)}')`).join(",")
+    );
 };
 
 const insertProductionCompanies = (companies: string[]) => {
-  throw new Error(`todo`);
+    return (
+        `INSERT INTO PRODUCTION_COMPANIES (company_name) values` +
+        companies.map(companyName => `('${escape(companyName)}')`).join(",")
+    );
 };
 
 const insertMovies = (movies: Movie[]) => {
-  throw new Error(`todo`);
+    return (
+        `INSERT INTO MOVIES (
+imdb_id,
+popularity,
+budget,
+revenue,
+revenue_adjusted,
+original_title,
+homepage,
+tagline,
+overview,
+runtime,
+release_date,
+budget_adjusted
+) values` +
+        movies.map(movie => `(
+'${escape(movie.imdbId)}',
+${(movie.popularity)},
+${(movie.budget)},
+${(movie.revenue)},
+${(movie.revenueAdjusted)},
+'${escape(movie.originalTitle)}',
+'${escape(movie.homepage)}',
+'${(movie.tagline == null ? "" : escape(movie.tagline)/*solves: tagline can be null*/ )}',
+'${escape(movie.overview)}',
+${(movie.runtime)},
+'${escape(movie.releaseDate)}',
+${(movie.budgetAdjusted)}
+)`).join(",")
+    );
 };
 
 describe("Insert Flat Data", () => {
@@ -185,6 +226,6 @@ describe("Insert Flat Data", () => {
 
       done();
     },
-    minutes(1)
+    minutes(10)
   );
 });
