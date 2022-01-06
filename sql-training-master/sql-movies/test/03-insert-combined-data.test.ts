@@ -11,20 +11,19 @@ import { Rating } from "../src/data/types";
 import { minutes } from "./utils";
 
 const insertRatings = (movieId: number, ratings: Rating[]) => {
-    /*throw new Error(`todo`);*/
     return (
-        `INSERT INTO MOVIE_RATINGS (
-user_id,
-rating,
-time_created,
-movie_id
-) VALUES` +
+    `INSERT INTO MOVIE_RATINGS (
+    user_id,
+    rating,
+    time_created,
+    movie_id
+    ) VALUES` +
         ratings.map(rating => `(
-'${(rating.userId)}',
-'${(rating.rating)}',
-'${(rating.time_created)}',
-'${(movieId)}'
-)`).join(",")
+    '${(rating.userId)}',
+    '${(rating.rating)}',
+    '${(rating.time_created)}',
+    '${(movieId)}'
+    )`).join(",")
     );
 };
 

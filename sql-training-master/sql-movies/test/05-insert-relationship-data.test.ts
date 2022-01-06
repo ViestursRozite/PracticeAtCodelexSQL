@@ -38,10 +38,10 @@ const insertMovieGenres = (
   genreRows: GenreRow[]
 ): string => {
     return (
-        `INSERT INTO ${MOVIE_GENRES} (movie_id, genre_id) VALUES ` +
-        genres.map(genreEntry => `(
-${(movieId)}, 
-${(genreRows.find(rowObject => rowObject.genre == genreEntry))!.id/*! is: assert this is never null*/}
+    `INSERT INTO ${MOVIE_GENRES} (movie_id, genre_id) VALUES ` +
+    genres.map(genreEntry => `(
+    ${(movieId)}, 
+    ${(genreRows.find(rowObject => rowObject.genre == genreEntry))!.id/*! is: assert this is never null*/}
 )`).join(",")
     );
 };
@@ -52,10 +52,10 @@ const insertMovieActors = (
   actorRows: ActorRow[]
 ): string => {
     return (
-        `INSERT INTO ${MOVIE_ACTORS} (movie_id, actor_id) VALUES ` +
-        actors.map(actorEntry => `(
-${(movieId)}, 
-${(actorRows.find(rowObject => rowObject.full_name == actorEntry))!.id}
+    `INSERT INTO ${MOVIE_ACTORS} (movie_id, actor_id) VALUES ` +
+    actors.map(actorEntry => `(
+    ${(movieId)}, 
+    ${(actorRows.find(rowObject => rowObject.full_name == actorEntry))!.id}
 )`).join(",")
     );
 };
@@ -66,10 +66,10 @@ const insertMovieDirectors = (
   directorRows: DirectorRow[]
 ): string => {
     return (
-        `INSERT INTO ${MOVIE_DIRECTORS} (movie_id, director_id) VALUES ` +
-        directors.map(directorEntry => `(
-${(movieId)}, 
-${(directorRows.find(rowObject => rowObject.full_name == directorEntry))!.id}
+    `INSERT INTO ${MOVIE_DIRECTORS} (movie_id, director_id) VALUES ` +
+    directors.map(directorEntry => `(
+    ${(movieId)}, 
+    ${(directorRows.find(rowObject => rowObject.full_name == directorEntry))!.id}
 )`).join(",")
     );
 };
@@ -80,10 +80,10 @@ const insertMovieKeywords = (
   keywordRows: KeywordRow[]
 ): string => {
     return (
-        `INSERT INTO ${MOVIE_KEYWORDS} (movie_id, keyword_id) VALUES ` +
-        keywords.map(keywordEntry => `(
-${(movieId)}, 
-${(keywordRows.find(rowObject => rowObject.keyword == keywordEntry))!.id}
+    `INSERT INTO ${MOVIE_KEYWORDS} (movie_id, keyword_id) VALUES ` +
+    keywords.map(keywordEntry => `(
+    ${(movieId)}, 
+    ${(keywordRows.find(rowObject => rowObject.keyword == keywordEntry))!.id}
 )`).join(",")
     );
 };
@@ -94,11 +94,11 @@ const insertMovieProductionCompanies = (
   productionCompanyRows: ProductionCompanyRow[]
 ): string => {
     return (
-        `INSERT INTO ${MOVIE_PRODUCTION_COMPANIES} (movie_id, company_id) VALUES ` +
-        productionCompanies.map(productionCompanyEntry => `(
-${(movieId)}, 
-${(productionCompanyRows.find(rowObject => rowObject.company_name == productionCompanyEntry))!.id}
-)`).join(",")
+    `INSERT INTO ${MOVIE_PRODUCTION_COMPANIES} (movie_id, company_id) VALUES ` +
+    productionCompanies.map(productionCompanyEntry => `(
+    ${(movieId)}, 
+    ${(productionCompanyRows.find(rowObject => rowObject.company_name == productionCompanyEntry))!.id}
+    )`).join(",")
     );
 };
 
