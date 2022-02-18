@@ -8,6 +8,7 @@ import {
   selectProductionCompanyById,
   selectMovieById
 } from "../src/queries/select";
+import { ACTORS, DIRECTORS, GENRES, KEYWORDS, MOVIES, PRODUCTION_COMPANIES } from "../src/table-names";
 import { minutes } from "./utils";
 
 describe("Foreign Keys", () => {
@@ -21,8 +22,11 @@ describe("Foreign Keys", () => {
   it(
     "should not be able delete genres if any movie is linked",
     async done => {
-      const genreId = 5;
-      const query = `delete genre by id`;
+        const genreId = 5;
+        const query = `
+        DELETE FROM ${GENRES}
+        WHERE id = ${genreId}`;
+
       try {
         await db.delete(query);
       } catch (e) {}
@@ -38,8 +42,11 @@ describe("Foreign Keys", () => {
   it(
     "should not be able delete director if any movie is linked",
     async done => {
-      const directorId = 7;
-      const query = `delete director by id`;
+        const directorId = 7;
+        const query = `
+        DELETE FROM ${DIRECTORS}
+        WHERE id = ${directorId}`;
+
       try {
         await db.delete(query);
       } catch (e) {}
@@ -55,8 +62,11 @@ describe("Foreign Keys", () => {
   it(
     "should not be able delete actor if any movie is linked",
     async done => {
-      const actorId = 10;
-      const query = `delete actor by id`;
+        const actorId = 10;
+        const query = `
+        DELETE FROM ${ACTORS}
+        WHERE id = ${actorId}`;
+
       try {
         await db.delete(query);
       } catch (e) {}
@@ -72,8 +82,11 @@ describe("Foreign Keys", () => {
   it(
     "should not be able delete keyword if any movie is linked",
     async done => {
-      const keywordId = 12;
-      const query = `delete keyword by id`;
+        const keywordId = 12;
+        const query = `
+        DELETE FROM ${KEYWORDS}
+        WHERE id = ${keywordId}`;
+
       try {
         await db.delete(query);
       } catch (e) {}
@@ -89,8 +102,11 @@ describe("Foreign Keys", () => {
   it(
     "should not be able delete production company if any movie is linked",
     async done => {
-      const companyId = 12;
-      const query = `delete production company by id`;
+        const companyId = 12;
+        const query = `
+        DELETE FROM ${PRODUCTION_COMPANIES}
+        WHERE id = ${companyId}`;
+
       try {
         await db.delete(query);
       } catch (e) {}
@@ -108,8 +124,11 @@ describe("Foreign Keys", () => {
   it(
     "should not be able delete movie if there are any linked data present",
     async done => {
-      const movieId = 100;
-      const query = `delete movie by id`;
+        const movieId = 100;
+        const query = `
+        DELETE FROM ${MOVIES}
+        WHERE id = ${movieId}`;
+
       try {
         await db.delete(query);
       } catch (e) {}
@@ -123,10 +142,24 @@ describe("Foreign Keys", () => {
   );
 
   it(
-    "should be able to delete movie",
+      "should be able to delete movie" + ` by id and all data from all linked tables`,
     async done => {
-      const movieId = 5915;
-      const query = `delete movie by id and all data from all linked tables`;
+        const movieId = 5915;
+        const query = `
+        DELETE FROM movies
+        WHERE id = '${movieId}';
+        DELETE FROM movie_actors
+        WHERE movie_id = '${movieId}';
+        DELETE FROM movie_directors
+        WHERE movie_id = '${movieId}';
+        DELETE FROM movie_genres
+        WHERE movie_id = '${movieId}';
+        DELETE FROM movie_keywords
+        WHERE movie_id = '${movieId}';
+        DELETE FROM movie_production_companies
+        WHERE movie_id = '${movieId}';
+        DELETE FROM movie_ratings
+        WHERE movie_id = '${movieId}';`;
 
       await db.delete(query);
 
